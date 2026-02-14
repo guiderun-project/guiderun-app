@@ -1,50 +1,56 @@
-# Welcome to your Expo app 👋
+# GuideRun
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+시각장애러너와 가이드러너를 연결하는 러닝 매칭 서비스입니다.
 
-## Get started
+함께 달리는 즐거움을 누구나 경험할 수 있도록, 시각장애러너와 가이드러너가 서로를 찾고 함께 훈련할 수 있는 플랫폼입니다.
 
-1. Install dependencies
+## Tech Stack
 
-   ```bash
-   npm install
-   ```
+- **Framework**: React Native (Expo SDK 54)
+- **Language**: TypeScript
+- **Routing**: Expo Router (file-based routing)
+- **Navigation**: React Navigation
 
-2. Start the app
+## Getting Started
 
-   ```bash
-   npx expo start
-   ```
+### Prerequisites
 
-In the output, you'll find options to open the app in a
+- Node.js 18+
+- pnpm
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Installation
 
 ```bash
-npm run reset-project
+pnpm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Run
 
-## Learn more
+```bash
+# 개발 서버 시작
+pnpm start
 
-To learn more about developing your project with Expo, look at the following resources:
+# iOS
+pnpm ios
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+# Android
+pnpm android
 
-## Join the community
+# Web
+pnpm web
+```
 
-Join our community of developers creating universal apps.
+## Project Structure
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```
+guiderun-app/
+├── app/              # 페이지 및 라우팅 (file-based routing)
+│   ├── (tabs)/       # 탭 네비게이션
+│   ├── _layout.tsx   # 루트 레이아웃
+│   └── modal.tsx     # 모달 화면
+├── assets/           # 이미지, 폰트 등 정적 리소스
+├── components/       # 재사용 가능한 컴포넌트
+├── constants/        # 상수 정의
+├── hooks/            # 커스텀 훅
+└── scripts/          # 유틸리티 스크립트
+```
