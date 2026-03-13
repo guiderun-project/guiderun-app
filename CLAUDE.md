@@ -106,6 +106,13 @@ src/
 - `release/<버전>` — 릴리즈 준비
 - `hotfix/<설명>` — 프로덕션 긴급 수정
 
+### 커밋 & 푸시 규칙 (필수)
+- **커밋 또는 푸시 전 반드시 작업 브랜치를 생성할 것** — `main`, `develop`에 직접 커밋 금지
+- **`main` 또는 `develop`으로 머지는 반드시 사용자에게 확인 후 진행할 것**
+  - 단, "PR 생성 후 develop에 머지해줘" 처럼 머지를 명시적으로 요청한 경우는 확인 없이 바로 진행
+- **PR 생성 요청 시 작업 브랜치가 없다면 브랜치를 먼저 생성한 후 PR을 진행할 것**
+- 브랜치 네이밍은 브랜치 전략 규칙을 따를 것 (예: `feature/webview-wrapper`, `fix/android-back-handler`)
+
 ### pre-commit
 - `tsc --noEmit` → `lint-staged` (eslint --fix + prettier --write)
 - 커밋 전 반드시 타입 체크 + 린트 통과 필요
