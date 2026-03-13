@@ -1,0 +1,8 @@
+app_identifier("com.guiderun.app")
+
+# iOS — Apple 계정 준비 후 설정
+# apple_id("your@email.com")
+# team_id("XXXXXXXXXX")
+
+# Android
+package_name("com.guiderun.app")

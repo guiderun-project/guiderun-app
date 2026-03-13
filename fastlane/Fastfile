@@ -1,0 +1,42 @@
+default_platform(:ios)
+
+BUILD_NUMBER = ENV["BUILD_NUMBER"] || "1"
+VERSION = ENV["VERSION"] || "1.0.0"
+
+# -----------------------------------------------
+# Android
+# -----------------------------------------------
+platform :android do
+  desc "Firebase App Distribution 내부 배포"
+  lane :distribute do
+    # TODO: Firebase 계정 준비 후 구현
+    # gradle(
+    #   task: "assemble",
+    #   build_type: "Release",
+    #   properties: {
+    #     "android.injected.version.code" => BUILD_NUMBER,
+    #     "android.injected.version.name" => VERSION,
+    #   }
+    # )
+    # firebase_app_distribution(
+    #   app: ENV["FIREBASE_APP_ID_ANDROID"],
+    #   service_credentials_file: "firebase-service-account.json",
+    #   groups: "internal-testers"
+    # )
+    UI.message("Android 배포 레인 — Firebase 계정 준비 후 활성화")
+  end
+end
+
+# -----------------------------------------------
+# iOS
+# -----------------------------------------------
+platform :ios do
+  desc "TestFlight 내부 배포"
+  lane :distribute do
+    # TODO: Apple 계정 준비 후 구현
+    # sync_code_signing(type: "appstore")
+    # build_app(scheme: "guiderunapp")
+    # upload_to_testflight(skip_waiting_for_build_processing: true)
+    UI.message("iOS 배포 레인 — Apple 계정 준비 후 활성화")
+  end
+end
