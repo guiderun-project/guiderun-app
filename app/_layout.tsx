@@ -8,9 +8,7 @@ import { AppProvider } from '@/src/providers/app-provider';
 export default function RootLayout() {
   return (
     <AppProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-      </Stack>
+      <Stack screenOptions={{ headerShown: false }} />
       <StatusBar style="auto" />
     </AppProvider>
   );
