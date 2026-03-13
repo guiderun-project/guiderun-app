@@ -4,9 +4,9 @@
 
 ## Phase 1 — 즉시 가능 (계정 없이)
 
-- [ ] `staging` 브랜치 생성
-- [ ] GitHub Actions — PR CI 워크플로우 작성 (typecheck + lint)
-- [ ] GitHub Actions — staging push 시 빌드 검증 워크플로우 작성
+- [x] `staging` 브랜치 생성
+- [x] GitHub Actions — PR CI 워크플로우 작성 (typecheck + lint)
+- [x] GitHub Actions — staging push 시 빌드 검증 워크플로우 작성
 - [ ] Fastlane 기본 구조 세팅 (`Gemfile`, `Fastfile`, `Appfile`)
 
 ## Phase 2 — Android (Google 계정 준비 후)
