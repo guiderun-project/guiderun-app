@@ -6,7 +6,7 @@
 
 - [x] `staging` 브랜치 생성
 - [x] GitHub Actions — PR CI 워크플로우 작성 (typecheck + lint)
-- [x] GitHub Actions — staging push 시 빌드 검증 워크플로우 작성
+- [ ] GitHub Actions — staging push 시 네이티브 빌드 + 배포 워크플로우 작성 (`deploy.yml`, 계정 준비 후)
 - [ ] Fastlane 기본 구조 세팅 (`Gemfile`, `Fastfile`, `Appfile`)
 
 ## Phase 2 — Android (Google 계정 준비 후)
