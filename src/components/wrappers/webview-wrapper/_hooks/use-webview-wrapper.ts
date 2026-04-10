@@ -7,6 +7,7 @@ import type {
 } from 'react-native-webview/lib/WebViewTypes';
 
 import { CONFIG } from '@/src/constants/config';
+import { webViewBridge } from '@/src/lib/webview-bridge';
 
 export interface UseWebViewWrapperProps {
   url?: string;
@@ -24,6 +25,10 @@ export function useWebViewWrapper({
   const webViewRef = useRef<WebView>(null);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
+
+  useEffect(function attachBridge() {
+    webViewBridge.attach(webViewRef);
+  }, []);
 
   const source = useMemo(() => {
     if (process.env.NODE_ENV === 'development') {
