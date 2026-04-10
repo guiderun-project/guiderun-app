@@ -2,11 +2,12 @@ import { View } from 'react-native';
 import { WebView, WebViewProps, type WebViewNavigation } from 'react-native-webview';
 
 import { LoadingSpinner } from '@/src/components/common/loading-spinner';
+import { WebToNativeMessage, webViewBridge } from '@/src/lib/webview-bridge';
 import { useWebViewWrapper } from './_hooks/use-webview-wrapper';
 
 interface WebViewWrapperProps extends Omit<
   WebViewProps,
-  'source' | 'onLoadEnd' | 'onNavigationStateChange'
+  'source' | 'onLoadEnd' | 'onNavigationStateChange' | 'onMessage'
 > {
   url?: string;
   /**
@@ -17,19 +18,24 @@ interface WebViewWrapperProps extends Omit<
    * 로딩 스피너 표시 여부 (기본값: true)
    */
   hasLoadingSpinner?: boolean;
+  children?: React.ReactNode;
   /**
    * 네비게이션 상태 변경 핸들러
    */
   onNavigationStateChange?: (navState: WebViewNavigation) => void;
-  children?: React.ReactNode;
+  /**
+   * 브릿지가 파싱한 메시지를 받는 핸들러
+   */
+  onMessage?: (message: WebToNativeMessage) => void;
 }
 
 export default function WebViewWrapper({
   url,
   isAndroidBackBlock = true,
   hasLoadingSpinner = true,
-  onNavigationStateChange,
   children,
+  onMessage,
+  onNavigationStateChange,
   ...props
 }: WebViewWrapperProps) {
   const { webViewRef, isInitialLoading, handleNavigationStateChange, source, onLoadEnd } =
@@ -52,6 +58,10 @@ export default function WebViewWrapper({
         domStorageEnabled
         allowsBackForwardNavigationGestures
         allowsInlineMediaPlayback
+        onMessage={(event) => {
+          const message = webViewBridge.parseMessage(event);
+          if (message) onMessage?.(message);
+        }}
         {...props}
       />
       {isInitialLoading && hasLoadingSpinner && <LoadingSpinner />}

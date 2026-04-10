@@ -20,75 +20,41 @@ export type WebToNativeMessage = { type: '__PLACEHOLDER__'; payload: undefined }
  *
  * @example
  * // | { type: 'PUSH_TOKEN'; payload: { token: string } }
- * // | { type: 'NAVIGATE'; payload: { path: string } }
  */
-export type NativeToWebMessage = { type: '__PLACEHOLDER__'; payload: undefined };
-
-// ─────────────────────────────────────────────────────────────────────────────
-// 내부 유틸 타입
-// ─────────────────────────────────────────────────────────────────────────────
-
-type ExtractPayload<Union, Type extends string> = Union extends { type: Type; payload: infer P }
-  ? P
-  : never;
-
-type Handler<P> = (payload: P) => void | Promise<void>;
+export type NativeToWebMessage = { type: 'NAVIGATE'; payload: { path: string } };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // WebViewBridge
 // ─────────────────────────────────────────────────────────────────────────────
 
 class WebViewBridge {
-  private ref: RefObject<WebView> | null = null;
-  private handlers = new Map<string, Handler<unknown>>();
+  private ref: RefObject<WebView | null> | null = null;
 
   /**
    * WebView ref 연결
-   * useWebViewWrapper 또는 WebViewWrapper에서 호출
+   * useWebViewWrapper에서 호출
    */
-  attach(ref: RefObject<WebView>): void {
+  attach(ref: RefObject<WebView | null>): void {
     this.ref = ref;
   }
 
   /**
-   * 웹 → 네이티브 메시지 핸들러 등록
-   * type에 따라 payload 타입이 자동 추론됨
+   * 웹 → 네이티브 메시지 파싱
+   * WebViewWrapper의 onMessage prop에서 호출
    *
    * @example
-   * webViewBridge.register('REQUEST_PERMISSION', ({ permission }) => { ... });
+   * <WebView onMessage={(e) => {
+   *   const msg = webViewBridge.parseMessage(e);
+   *   if (msg) onMessage?.(msg);
+   * }} />
    */
-  register<T extends WebToNativeMessage['type']>(
-    type: T,
-    handler: Handler<ExtractPayload<WebToNativeMessage, T>>,
-  ): void {
-    this.handlers.set(type, handler as Handler<unknown>);
-  }
-
-  /**
-   * WebView onMessage 이벤트 핸들러
-   * WebViewWrapper의 onMessage prop에 연결
-   *
-   * @example
-   * <WebView onMessage={webViewBridge.handleMessage} />
-   */
-  handleMessage = (event: WebViewMessageEvent): void => {
-    let message: WebToNativeMessage;
-
+  parseMessage = (event: WebViewMessageEvent): WebToNativeMessage | null => {
     try {
-      message = JSON.parse(event.nativeEvent.data);
+      return JSON.parse(event.nativeEvent.data) as WebToNativeMessage;
     } catch {
       console.warn('[Bridge] 메시지 파싱 실패:', event.nativeEvent.data);
-      return;
+      return null;
     }
-
-    const handler = this.handlers.get(message.type);
-
-    if (!handler) {
-      console.warn('[Bridge] 등록되지 않은 메시지 타입:', message.type);
-      return;
-    }
-
-    handler(message.payload);
   };
 
   /**
