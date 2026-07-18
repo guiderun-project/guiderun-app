@@ -31,15 +31,32 @@ pnpm install
 # 개발 서버 시작
 pnpm start
 
-# iOS
+# iOS (Expo Go)
 pnpm ios
 
-# Android
+# Android (Expo Go)
 pnpm android
 
 # Web
 pnpm web
 ```
+
+### Run (개발 빌드)
+
+네이티브 개발 빌드를 만들어 시뮬레이터/에뮬레이터에 설치하고 실행합니다.
+prebuild(네이티브 프로젝트 생성) → 빌드 → 설치 → Metro 연결까지 한 번에 수행합니다.
+
+```bash
+# Android — JDK 17로 디버그 APK 빌드 + 설치 + 실행
+pnpm android:run
+
+# iOS — 디버그 앱 빌드 + 설치 + 실행 (Xcode 필요)
+pnpm ios:run
+```
+
+- **최초 1회 또는 네이티브 변경 시에만** 실행하면 됩니다 (`app.json`, Expo 플러그인, 네이티브 라이브러리 추가 등). 이후 JS 변경은 `pnpm start`로 띄운 Metro에 설치된 앱이 연결되어 Fast Refresh로 반영됩니다.
+- `android:run`은 이 프로젝트의 Gradle/AGP가 요구하는 **JDK 17**을 스크립트에서 고정합니다 (`/usr/libexec/java_home`은 macOS 전용).
+- **Android는 Expo Go에서 화면이 렌더링되지 않는 문제가 있어 개발 빌드 사용을 권장합니다.** 딥링크(`guiderunapp://`) 테스트도 개발 빌드에서만 가능합니다.
 
 ## Project Structure
 

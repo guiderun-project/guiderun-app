@@ -1,6 +1,8 @@
-import { useDeepLink } from './use-deep-link';
+import useDeepLink from './use-deep-link';
 
-export function useHomeScreen() {
+function useHomeScreen() {
   const { initialUrl, isReady } = useDeepLink();
   return { initialUrl, isReady };
 }
+
+export default useHomeScreen;
