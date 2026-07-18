@@ -1,8 +1,7 @@
-import WebViewWrapper from '@/src/components/wrappers/webview-wrapper/webview-wrapper';
-
 import SafeAreaViewLayout from '@/src/components/common/safe-area-view-layout';
+import WebViewWrapper from '@/src/components/wrappers/webview-wrapper/webview-wrapper';
 import { WebToNativeMessage } from '@/src/lib/webview-bridge';
-import { useHomeScreen } from './_hooks/use-home-screen';
+import useHomeScreen from './_hooks/use-home-screen';
 
 export default function HomeScreen() {
   const { initialUrl, isReady } = useHomeScreen();

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import * as Linking from 'expo-linking';
+import { useEffect, useState } from 'react';
 
 import { CONFIG } from '@/src/constants/config';
 import { webViewBridge } from '@/src/lib/webview-bridge';
@@ -22,7 +22,7 @@ function buildUrl(path: string): string {
  * - 앱 실행 중 딥링크 수신 → WebView에 NAVIGATE 메시지 전송
  * - isReady: getInitialURL 완료 전까지 WebView 렌더 지연용
  */
-export function useDeepLink() {
+function useDeepLink() {
   const [initialUrl, setInitialUrl] = useState<string | undefined>(undefined);
   const [isReady, setIsReady] = useState(false);
 
@@ -46,3 +46,5 @@ export function useDeepLink() {
 
   return { initialUrl, isReady };
 }
+
+export default useDeepLink;
