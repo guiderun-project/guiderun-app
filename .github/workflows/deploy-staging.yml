@@ -1,0 +1,78 @@
+name: Deploy Staging
+
+on:
+  push:
+    branches:
+      - staging
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# 연속 머지 시 이전 배포를 취소하고 최신 커밋만 배포
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  android:
+    name: Android · Firebase App Distribution
+    runs-on: ubuntu-latest
+    environment: staging
+    timeout-minutes: 30
+
+    env:
+      APP_ENV: staging
+      BUILD_NUMBER: ${{ github.run_number }}
+      # staging 빌드는 release 모드라 PRD 변수를 사용 — staging 환경의 URL을 주입
+      EXPO_PUBLIC_WEBVIEW_URL_PRD: ${{ vars.EXPO_PUBLIC_WEBVIEW_URL }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.12.4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate native project (prebuild)
+        run: pnpm expo prebuild --platform android --no-install
+
+      - name: Restore Firebase credentials
+        run: printf '%s' "$SERVICE_ACCOUNT_JSON" > firebase-service-account.json
+        env:
+          SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: Build & distribute
+        run: bundle exec fastlane android distribute
+        env:
+          FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-${{ github.run_number }}
+          path: android/app/build/outputs/apk/release/*.apk
+          retention-days: 14

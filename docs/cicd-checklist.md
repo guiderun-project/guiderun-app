@@ -6,16 +6,18 @@
 
 - [x] `staging` 브랜치 생성
 - [x] GitHub Actions — PR CI 워크플로우 작성 (typecheck + lint)
-- [ ] GitHub Actions — staging push 시 네이티브 빌드 + 배포 워크플로우 작성 (`deploy.yml`, 계정 준비 후)
+- [x] GitHub Actions — staging push 시 네이티브 빌드 + 배포 워크플로우 작성 (`deploy-staging.yml`)
 - [x] Fastlane 기본 구조 세팅 (`Gemfile`, `Fastfile`, `Appfile`)
 
 ## Phase 2 — Android (Google 계정 준비 후)
 
-- [ ] Firebase 프로젝트 생성 + App Distribution 활성화
-- [ ] Firebase 서비스 계정 JSON 발급
-- [ ] GitHub Secrets 등록 (`FIREBASE_APP_ID_ANDROID`, `GOOGLE_APPLICATION_CREDENTIALS`)
-- [ ] Android 빌드 + Firebase App Distribution 배포 워크플로우 작성
-- [ ] 빌드 넘버 자동 증가 설정 (`github.run_number` 활용)
+- [x] Firebase 프로젝트 생성 + App Distribution 활성화
+  - 프로젝트 생성 완료 (`guiderun-project-64aa1`) / Android 앱 **`com.guiderun.app.stg`** 패키지로 등록 완료
+  - App Distribution 활성화 + 테스터 그룹 `internal-testers` 생성 완료
+- [x] Firebase 서비스 계정 JSON 발급 (`guiderun-project-64aa1`에서 발급 — `490203` 프로젝트 키는 무효)
+- [x] GitHub `staging` 환경 생성 + Secrets 등록 (`FIREBASE_APP_ID_ANDROID`, `GOOGLE_APPLICATION_CREDENTIALS`) + Variable `EXPO_PUBLIC_WEBVIEW_URL`
+- [x] Android 빌드 + Firebase App Distribution 배포 워크플로우 작성
+- [x] 빌드 넘버 자동 증가 설정 (`github.run_number` → `app.config.js`가 versionCode/buildNumber 주입)
 
 ## Phase 3 — iOS (Apple Developer 계정 + $99 결제 후)
 
