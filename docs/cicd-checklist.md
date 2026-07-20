@@ -11,11 +11,11 @@
 
 ## Phase 2 — Android (Google 계정 준비 후)
 
-- [ ] Firebase 프로젝트 생성 + App Distribution 활성화
-  - 프로젝트 생성 완료 (`guiderun-project-64aa1`) / Android 앱은 **`com.guiderun.app.stg`** 패키지로 등록할 것 (staging 전용 패키지)
-  - App Distribution 활성화 + 테스터 그룹 `internal-testers` 생성
-- [ ] Firebase 서비스 계정 JSON 발급 (GCP 프로젝트 `guiderun-project-64aa1`에서 발급해야 함 — `490203` 프로젝트 키는 무효)
-- [ ] GitHub Secrets 등록 (`FIREBASE_APP_ID_ANDROID`, `GOOGLE_APPLICATION_CREDENTIALS`) + staging 환경 변수 `EXPO_PUBLIC_WEBVIEW_URL`
+- [x] Firebase 프로젝트 생성 + App Distribution 활성화
+  - 프로젝트 생성 완료 (`guiderun-project-64aa1`) / Android 앱 **`com.guiderun.app.stg`** 패키지로 등록 완료
+  - App Distribution 활성화 + 테스터 그룹 `internal-testers` 생성 완료
+- [x] Firebase 서비스 계정 JSON 발급 (`guiderun-project-64aa1`에서 발급 — `490203` 프로젝트 키는 무효)
+- [x] GitHub `staging` 환경 생성 + Secrets 등록 (`FIREBASE_APP_ID_ANDROID`, `GOOGLE_APPLICATION_CREDENTIALS`) + Variable `EXPO_PUBLIC_WEBVIEW_URL`
 - [x] Android 빌드 + Firebase App Distribution 배포 워크플로우 작성
 - [x] 빌드 넘버 자동 증가 설정 (`github.run_number` → `app.config.js`가 versionCode/buildNumber 주입)
 

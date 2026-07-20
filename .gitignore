@@ -51,5 +51,9 @@ fastlane/Preview.html
 fastlane/screenshots/
 fastlane/test_output/
 firebase-service-account.json
+# GCP/Firebase 서비스 계정 키 (절대 커밋 금지)
+*service*key*.json
+*-service-account*.json
+*serviceaccount*.json
 
 .omc/
