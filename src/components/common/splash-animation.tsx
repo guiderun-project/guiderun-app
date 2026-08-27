@@ -2,14 +2,13 @@ import { useCallback, useEffect } from 'react';
 import { Dimensions, Image, StyleSheet } from 'react-native';
 import Animated, {
   Easing,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-
+import { scheduleOnRN } from 'react-native-worklets';
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const SPLASH_NATURAL_WIDTH = 355;
@@ -59,7 +58,7 @@ export function SplashAnimation({ onFinish }: SplashAnimationProps) {
     opacity.value = withDelay(
       totalScrollDuration + SECTION_PAUSE,
       withTiming(0, { duration: 500 }, (finished) => {
-        if (finished) runOnJS(handleFinish)();
+        if (finished) scheduleOnRN(handleFinish);
       }),
     );
   }, [handleFinish, opacity, translateY]);

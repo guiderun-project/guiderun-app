@@ -2,13 +2,13 @@ import { useCallback, useEffect } from 'react';
 import { Dimensions, Image, StyleSheet, Text } from 'react-native';
 import Animated, {
   Easing,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -41,7 +41,7 @@ export function SplashAnimation2({ onFinish }: SplashAnimation2Props) {
       withDelay(
         TEXT_DELAY + TEXT_DURATION + HOLD_DURATION,
         withTiming(0, { duration: FADE_OUT_DURATION }, (finished) => {
-          if (finished) runOnJS(handleFinish)();
+          if (finished) scheduleOnRN(handleFinish);
         }),
       ),
     );
