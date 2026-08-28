@@ -15,11 +15,11 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const LOGO_WIDTH = 180;
 const LOGO_HEIGHT = 124;
 
-const FADE_IN_DURATION = 400;
-const TEXT_DELAY = 300;
-const TEXT_DURATION = 700;
-const HOLD_DURATION = 900;
-const FADE_OUT_DURATION = 500;
+const FADE_IN_DURATION = 200;
+const TEXT_DELAY = 100;
+const TEXT_DURATION = 500;
+const HOLD_DURATION = 700;
+const FADE_OUT_DURATION = 300;
 
 interface SplashAnimation2Props {
   onFinish: () => void;

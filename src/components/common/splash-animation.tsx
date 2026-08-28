@@ -21,8 +21,8 @@ const scaledSplashHeight = SPLASH_NATURAL_HEIGHT * scale;
 const scrollRange = scaledSplashHeight - SCREEN_HEIGHT;
 const sectionScroll = scrollRange / 2; // 3 sections → 2 transitions
 
-const SECTION_PAUSE = 500; // 각 구간 정지 시간 (ms)
-const SCROLL_DURATION = 1100; // 구간 간 스크롤 시간 (ms)
+const SECTION_PAUSE = 300; // 각 구간 정지 시간 (ms)
+const SCROLL_DURATION = 800; // 구간 간 스크롤 시간 (ms)
 const START_OFFSET = -130; // 시작 위치 위로 올리는 오프셋 (px)
 
 interface SplashAnimationProps {
