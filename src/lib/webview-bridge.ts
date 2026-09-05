@@ -13,7 +13,17 @@ import type { WebView, WebViewMessageEvent } from 'react-native-webview';
  * // | { type: 'REQUEST_PERMISSION'; payload: { permission: 'camera' | 'location' } }
  * // | { type: 'OPEN_SHARE'; payload: { url: string; title?: string } }
  */
-export type WebToNativeMessage = { type: '__PLACEHOLDER__'; payload: undefined };
+export type WebToNativeMessage = {
+  type: 'SET_STATUS_BAR';
+  payload: {
+    /**
+     * 상태바 아이콘/텍스트 색상.
+     * 'dark' = 어두운 아이콘 + 흰 배경 (라이트/고대비 모드), 'light' = 밝은 아이콘 + 검정 배경 (다크 모드)
+     * 배경색은 흰/검 고정이라 별도 payload 없이 네이티브에서 매핑
+     */
+    style: 'light' | 'dark';
+  };
+};
 
 /**
  * 네이티브 → 웹 메시지
