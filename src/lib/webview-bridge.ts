@@ -18,10 +18,14 @@ export type WebToNativeMessage = {
   payload: {
     /**
      * 상태바 아이콘/텍스트 색상.
-     * 'dark' = 어두운 아이콘 + 흰 배경 (라이트/고대비 모드), 'light' = 밝은 아이콘 + 검정 배경 (다크 모드)
-     * 배경색은 흰/검 고정이라 별도 payload 없이 네이티브에서 매핑
+     * 'dark' = 어두운 아이콘 (밝은 배경용), 'light' = 밝은 아이콘 (어두운 배경용)
      */
     style: 'light' | 'dark';
+    /**
+     * 상태바 배경색 (hex). 생략 시 style 기준 흰/검 고정값으로 대체됨
+     * (style: 'dark' → #FFFFFF, style: 'light' → #000000)
+     */
+    backgroundColor?: string;
   };
 };
 
