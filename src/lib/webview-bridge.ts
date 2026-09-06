@@ -13,21 +13,38 @@ import type { WebView, WebViewMessageEvent } from 'react-native-webview';
  * // | { type: 'REQUEST_PERMISSION'; payload: { permission: 'camera' | 'location' } }
  * // | { type: 'OPEN_SHARE'; payload: { url: string; title?: string } }
  */
-export type WebToNativeMessage = {
-  type: 'SET_STATUS_BAR';
-  payload: {
-    /**
-     * 상태바 아이콘/텍스트 색상.
-     * 'dark' = 어두운 아이콘 (밝은 배경용), 'light' = 밝은 아이콘 (어두운 배경용)
-     */
-    style: 'light' | 'dark';
-    /**
-     * 상태바 배경색 (hex). 생략 시 style 기준 흰/검 고정값으로 대체됨
-     * (style: 'dark' → #FFFFFF, style: 'light' → #000000)
-     */
-    backgroundColor?: string;
-  };
-};
+export type WebToNativeMessage =
+  | {
+      type: 'SET_STATUS_BAR';
+      payload: {
+        /**
+         * 상태바 아이콘/텍스트 색상.
+         * 'dark' = 어두운 아이콘 (밝은 배경용), 'light' = 밝은 아이콘 (어두운 배경용)
+         */
+        style: 'light' | 'dark';
+        /**
+         * 상태바 배경색 (hex). 생략 시 style 기준 흰/검 고정값으로 대체됨
+         * (style: 'dark' → #FFFFFF, style: 'light' → #000000)
+         */
+        backgroundColor?: string;
+      };
+    }
+  | {
+      type: 'SET_BOTTOM_BAR';
+      payload: {
+        /**
+         * 하단 영역 아이콘 색상 (Android 내비게이션 바 버튼).
+         * iOS는 홈 인디케이터가 배경색에 따라 자동으로 대비되므로 영향 없음
+         */
+        style: 'light' | 'dark';
+        /**
+         * 하단 영역 배경색 (hex). Android는 내비게이션 바에 직접 적용,
+         * iOS는 세이프에어리어 하단(홈 인디케이터 영역) 오버레이에 적용.
+         * 생략 시 style 기준 흰/검 고정값으로 대체됨
+         */
+        backgroundColor?: string;
+      };
+    };
 
 /**
  * 네이티브 → 웹 메시지
